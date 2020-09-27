@@ -5,6 +5,7 @@ using System.Linq;
 using NorthwindConsole.Model;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace NorthwindConsole
 {
@@ -93,7 +94,7 @@ namespace NorthwindConsole
                         int id = int.Parse(Console.ReadLine());
                         Console.Clear();
                         logger.Info($"CategoryId {id} selected");
-                        Categories category = db.Categories.FirstOrDefault(c => c.CategoryId == id);
+                        Categories category = db.Categories.Include("Products").FirstOrDefault(c => c.CategoryId == id);
                         Console.WriteLine($"{category.CategoryName} - {category.Description}");
                         foreach (Products p in category.Products)
                         {
