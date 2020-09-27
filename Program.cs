@@ -93,6 +93,8 @@ namespace NorthwindConsole
                         int id = int.Parse(Console.ReadLine());
                         Console.Clear();
                         logger.Info($"CategoryId {id} selected");
+                        Categories category = db.Categories.FirstOrDefault(c => c.CategoryId == id);
+                        Console.WriteLine($"{category.CategoryName} - {category.Description}");
                     }
                     Console.WriteLine();
 
