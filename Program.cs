@@ -23,6 +23,7 @@ namespace NorthwindConsole
                 {
                     Console.WriteLine("1) Display Categories");
                     Console.WriteLine("2) Add Category");
+                    Console.WriteLine("3) Display Category and related products");
                     Console.WriteLine("\"q\" to quit");
                     choice = Console.ReadLine();
                     Console.Clear();
@@ -76,6 +77,22 @@ namespace NorthwindConsole
                                 logger.Error($"{result.MemberNames.First()} : {result.ErrorMessage}");
                             }
                         }
+                    }
+                    else if (choice == "3")
+                    {
+                        var db = new Northwind_DotNetDb_JSGContext();
+                        var query = db.Categories.OrderBy(p => p.CategoryId);
+
+                        Console.WriteLine("Select the category whose products you want to display:");
+                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                        foreach (var item in query)
+                        {
+                            Console.WriteLine($"{item.CategoryId}) {item.CategoryName}");
+                        }
+                        Console.ForegroundColor = ConsoleColor.White;
+                        int id = int.Parse(Console.ReadLine());
+                        Console.Clear();
+                        logger.Info($"CategoryId {id} selected");
                     }
                     Console.WriteLine();
 
