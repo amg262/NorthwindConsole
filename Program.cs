@@ -24,7 +24,7 @@ namespace NorthwindConsole
                 {
                     Console.WriteLine("1) Display Categories");
                     Console.WriteLine("2) Add Category");
-                    Console.WriteLine("3) Display Category and related products");
+                    Console.WriteLine("3) Display Category and related products");                    Console.WriteLine("4) Display all Categories and their related products");
                     Console.WriteLine("\"q\" to quit");
                     choice = Console.ReadLine();
                     Console.Clear();
@@ -99,6 +99,19 @@ namespace NorthwindConsole
                         foreach (Products p in category.Products)
                         {
                             Console.WriteLine(p.ProductName);
+                        }
+                    }
+                    else if (choice == "4")
+                    {
+                        var db = new Northwind_DotNetDb_JSGContext();
+                        var query = db.Categories.Include("Products").OrderBy(p => p.CategoryId);
+                        foreach (var item in query)
+                        {
+                            Console.WriteLine($"{item.CategoryName}");
+                            foreach (Products p in item.Products)
+                            {
+                                Console.WriteLine($"\t{p.ProductName}");
+                            }
                         }
                     }
                     Console.WriteLine();
