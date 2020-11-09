@@ -1,5 +1,11 @@
 # NorthwindConsole
 
+## To install dotnet command line tools
+
+```
+dotnet tool install --global dotnet-ef
+```
+
 ## To scaffold data context and entity classes:
 
 ```
