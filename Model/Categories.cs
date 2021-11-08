@@ -12,7 +12,7 @@ namespace NorthwindConsole.Model
         }
 
         public int CategoryId { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Error: CategoryId required error in Categories.cs")]
         public string CategoryName { get; set; }
         public string Description { get; set; }
 

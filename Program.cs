@@ -61,8 +61,8 @@ namespace NorthwindConsole
                         var isValid = Validator.TryValidateObject(category, context, results, true);
                         if (isValid)
                         {
-                            var db = new Northwind_DotNetDb_JSGContext();
-                            // check for unique name
+                            var db = new Northwind_88_AMGContext();
+                            // check for unique name`
                             if (db.Categories.Any(c => c.CategoryName == category.CategoryName))
                             {
                                 // generate validation error
