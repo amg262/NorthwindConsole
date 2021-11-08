@@ -12,7 +12,9 @@ namespace NorthwindConsole
     class Program
     {
         // create static instance of Logger
-        private static NLog.Logger logger = NLogBuilder.ConfigureNLog(Directory.GetCurrentDirectory() + "\\nlog.config").GetCurrentClassLogger();
+        private static NLog.Logger logger = NLogBuilder.ConfigureNLog(Directory.GetCurrentDirectory() + "\\nlog.config")
+            .GetCurrentClassLogger();
+
         static void Main(string[] args)
         {
             logger.Info("Program started");
@@ -24,7 +26,8 @@ namespace NorthwindConsole
                 {
                     Console.WriteLine("1) Display Categories");
                     Console.WriteLine("2) Add Category");
-                    Console.WriteLine("3) Display Category and related products");                    Console.WriteLine("4) Display all Categories and their related products");
+                    Console.WriteLine("3) Display Category and related products");
+                    Console.WriteLine("4) Display all Categories and their related products");
                     Console.WriteLine("\"q\" to quit");
                     choice = Console.ReadLine();
                     Console.Clear();
@@ -41,6 +44,7 @@ namespace NorthwindConsole
                         {
                             Console.WriteLine($"{item.CategoryName} - {item.Description}");
                         }
+
                         Console.ForegroundColor = ConsoleColor.White;
                     }
                     else if (choice == "2")
@@ -63,7 +67,7 @@ namespace NorthwindConsole
                             {
                                 // generate validation error
                                 isValid = false;
-                                results.Add(new ValidationResult("Name exists", new string[] { "CategoryName" }));
+                                results.Add(new ValidationResult("Name exists", new string[] {"CategoryName"}));
                             }
                             else
                             {
@@ -71,6 +75,7 @@ namespace NorthwindConsole
                                 // TODO: save category to db
                             }
                         }
+
                         if (!isValid)
                         {
                             foreach (var result in results)
@@ -90,6 +95,7 @@ namespace NorthwindConsole
                         {
                             Console.WriteLine($"{item.CategoryId}) {item.CategoryName}");
                         }
+
                         Console.ForegroundColor = ConsoleColor.White;
                         int id = int.Parse(Console.ReadLine());
                         Console.Clear();
@@ -114,8 +120,8 @@ namespace NorthwindConsole
                             }
                         }
                     }
-                    Console.WriteLine();
 
+                    Console.WriteLine();
                 } while (choice.ToLower() != "q");
             }
             catch (Exception ex)

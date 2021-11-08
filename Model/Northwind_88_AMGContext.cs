@@ -1,6 +1,8 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Configuration;
+
 
 namespace NorthwindConsole.Model
 {
@@ -31,8 +33,10 @@ namespace NorthwindConsole.Model
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=bitsql.wctc.edu;Database=Northwind_88_AMG;User ID=agunn1;Password=000406250");
+                IConfiguration config = new ConfigurationBuilder()
+                    .AddJsonFile("appsettings.json", true, true)
+                    .Build();
+                optionsBuilder.UseSqlServer(@config["NorthwindContext:ConnectionString"]);
             }
         }
 
@@ -74,7 +78,7 @@ namespace NorthwindConsole.Model
 
             modelBuilder.Entity<EmployeeTerritories>(entity =>
             {
-                entity.HasKey(e => new { e.EmployeeId, e.TerritoryId })
+                entity.HasKey(e => new {e.EmployeeId, e.TerritoryId})
                     .IsClustered(false);
 
                 entity.Property(e => e.TerritoryId).HasMaxLength(20);

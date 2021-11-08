@@ -77,7 +77,7 @@ namespace NorthwindConsole.Model
 
             modelBuilder.Entity<EmployeeTerritories>(entity =>
             {
-                entity.HasKey(e => new { e.EmployeeId, e.TerritoryId })
+                entity.HasKey(e => new {e.EmployeeId, e.TerritoryId})
                     .IsClustered(false);
 
                 entity.Property(e => e.TerritoryId).HasMaxLength(20);
