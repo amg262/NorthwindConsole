@@ -86,7 +86,8 @@ namespace NorthwindConsole
                     }
                     else if (choice == "3")
                     {
-                        var db = new Northwind_DotNetDb_JSGContext();
+                        var db2= new Northwind_DotNetDb_JSGContext();
+                        var db = new Northwind_88_AMGContext();
                         var query = db.Categories.OrderBy(p => p.CategoryId);
 
                         Console.WriteLine("Select the category whose products you want to display:");
