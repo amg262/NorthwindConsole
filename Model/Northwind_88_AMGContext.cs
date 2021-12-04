@@ -309,6 +309,11 @@ namespace NorthwindConsole.Model
             return Products.ToList();
         }
 
+        public void AddProduct(Products prod)
+        {
+            Products.Add(prod);
+            SaveChanges();
+        }
         public List<Products> GetDiscontinuedProds()
         {
             var list = new List<Products>(Products.Where(p => p.Discontinued == true));

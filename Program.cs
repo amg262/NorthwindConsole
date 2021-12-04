@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Timers;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace NorthwindConsole
 {
@@ -67,6 +68,46 @@ namespace NorthwindConsole
 
                             if (productPortal == 1)
                             {
+                                Console.WriteLine("Name: ");
+                                string name = Console.ReadLine();
+                                Console.WriteLine("Supplier ID: ");
+                                Int32.TryParse(Console.ReadLine(), out int supp);
+
+                                Console.WriteLine("Cat ID: ");
+                                Int32.TryParse(Console.ReadLine(), out int cat);
+
+                                Console.WriteLine("Qty/Unit: ");
+                                string qtyUnit = Console.ReadLine();
+
+                                Console.WriteLine("Unit Price: ");
+                                Decimal.TryParse(Console.ReadLine(), out decimal unitPrice);
+
+                                Console.WriteLine("Unit Stock: ");
+                                Int32.TryParse(Console.ReadLine(), out int unitStock);
+
+
+                                // string unitStock = Console.ReadLine();
+
+                                Console.WriteLine("Units Order: ");
+                                Int32.TryParse(Console.ReadLine(), out int unitOrder);
+
+                                Console.WriteLine("Reorder Level: ");
+                                Int32.TryParse(Console.ReadLine(), out int reorder);
+
+                                Console.WriteLine("Distoninued: ");
+                                Boolean.TryParse(Console.ReadLine(), out bool discont);
+
+                                var product = new Products
+                                {
+                                    ProductName = name, SupplierId = supp, CategoryId = cat, QuantityPerUnit = qtyUnit,
+                                    UnitPrice = unitPrice, UnitsInStock = (short) unitStock,
+                                    UnitsOnOrder = (short) unitOrder, ReorderLevel = (short) reorder,
+                                    Discontinued = discont
+                                };
+                                
+                                db.AddProduct(product);
+                                
+                                
                             }
                             else if (productPortal == 2)
                             {
@@ -101,6 +142,7 @@ namespace NorthwindConsole
                                         {
                                             Console.ForegroundColor = ConsoleColor.Cyan;
                                         }
+
                                         Console.WriteLine(prod.ToString());
                                     }
                                 }
