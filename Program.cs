@@ -38,7 +38,6 @@ namespace NorthwindConsole
                     Console.WriteLine();
                     Console.WriteLine();
                     Console.WriteLine($"Welcome to Andrew Gunn's Final Project");
-                    Console.WriteLine($"{programTimer.ToString()}");
 
 
                     Console.WriteLine($"You must choose which of 2 portals this program will enter.");
@@ -53,6 +52,12 @@ namespace NorthwindConsole
 
                         if (portal == 1)
                         {
+                            var db = new Northwind_88_AMGContext();
+
+
+                            // check for unique name`
+
+
                             Console.WriteLine("You enter the PRODUCT portal");
                             Console.WriteLine($"1) Add New Product");
                             Console.WriteLine("2) Edit Product");
@@ -74,6 +79,39 @@ namespace NorthwindConsole
                                 Console.WriteLine("3) Display Discontinued Products");
                                 Console.WriteLine("4) Display Active Products");
                                 Console.WriteLine("5) Display a Specific Product show All Fields");
+
+                                Int32.TryParse(Console.ReadLine(), out int prodDisplayPortal);
+
+                                if (prodDisplayPortal == 1)
+                                {
+                                    foreach (var prod in db.GetProducts())
+                                    {
+                                        Console.WriteLine(prod.ProductName);
+                                    }
+                                }
+                                else if (prodDisplayPortal == 2)
+                                {
+                                    foreach (var prod in db.GetProducts())
+                                    {
+                                        if (prod.Discontinued == true)
+                                        {
+                                            Console.ForegroundColor = ConsoleColor.Red;
+                                        }
+                                        else
+                                        {
+                                            Console.ForegroundColor = ConsoleColor.Cyan;
+                                        }
+                                        Console.WriteLine(prod.ToString());
+                                    }
+                                }
+                                else if (prodDisplayPortal == 3)
+                                {
+                                    foreach (var prod in db.GetDiscontinuedProds())
+                                    {
+                                        Console.WriteLine(prod.ProductName);
+                                        Console.WriteLine(prod.Discontinued);
+                                    }
+                                }
                             }
                             else
                             {

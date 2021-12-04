@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
@@ -299,6 +301,24 @@ namespace NorthwindConsole.Model
             });
 
             OnModelCreatingPartial(modelBuilder);
+        }
+
+
+        public List<Products> GetProducts()
+        {
+            return Products.ToList();
+        }
+
+        public List<Products> GetDiscontinuedProds()
+        {
+            var list = new List<Products>(Products.Where(p => p.Discontinued == true));
+            return list;
+        }
+
+        public List<Products> GetActiveProds()
+        {
+            var list = new List<Products>(Products.Where(p => p.Discontinued == false));
+            return list;
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
