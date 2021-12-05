@@ -5,6 +5,7 @@ using System.Linq;
 using NorthwindConsole.Model;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Threading.Channels;
 using System.Timers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
@@ -63,7 +64,7 @@ namespace NorthwindConsole
                             Console.WriteLine($"1) Add New Product");
                             Console.WriteLine("2) Edit Product");
                             Console.WriteLine("3) Display");
-                            Console.WriteLine("4) Search");
+                            Console.WriteLine("4) Advanced Search");
                             Console.WriteLine("5) Delete");
 
                             Int32.TryParse(Console.ReadLine(), out int productPortal);
@@ -234,10 +235,21 @@ namespace NorthwindConsole
                             {
                                 Console.ForegroundColor = ConsoleColor.Magenta;
 
-                                Console.WriteLine(
-                                    "Entering the query field will search every single field in the product record row");
-                                Console.WriteLine("Query");
+                                Console.WriteLine("This is an Advanced Search of ALL product fields");
+                                Console.WriteLine("Entering a query will search EVERY SINGLE field of a product");
+                                Console.WriteLine("Search Query");
                                 string query = Console.ReadLine();
+
+                                var queriedProds = db.QueryProducts(query);
+
+                                Console.WriteLine($"Found {queriedProds.Count} Product(s)");
+
+                                foreach (var prod in queriedProds)
+                                {
+                                    Console.WriteLine($"{prod.ToString()}");
+                                }
+
+                                Console.WriteLine("Search Successful!");
                             }
                             else if (productPortal == 5)
                             {

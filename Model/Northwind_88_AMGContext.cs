@@ -315,6 +315,36 @@ namespace NorthwindConsole.Model
             SaveChanges();
         }
 
+        public List<Products> QueryProducts(string query)
+        {
+            var foundProds = new List<Products>();
+
+            var allProds = Products.ToList();
+            Int32.TryParse(query, out int prodId);
+            Int32.TryParse(query, out int suppId);
+            Int32.TryParse(query, out int catId);
+            //Int32.TryParse(query, out int qtyUnit);
+            Decimal.TryParse(query, out decimal unitPrice);
+            Int32.TryParse(query, out int unitStock);
+            Int32.TryParse(query, out int unitsOrder);
+            Int32.TryParse(query, out int reorder);
+            Boolean.TryParse(query, out bool distcontinued);
+
+            foreach (var prod in allProds.Where(p => p.ProductId == prodId)) foundProds.Add(prod);
+            foreach (var prod in allProds.Where(p => p.ProductName.Contains(query))) foundProds.Add(prod);
+            foreach (var prod in allProds.Where(p => p.CategoryId == catId)) foundProds.Add(prod);
+            foreach (var prod in allProds.Where(p => p.SupplierId == suppId)) foundProds.Add(prod);
+            foreach (var prod in allProds.Where(p => p.QuantityPerUnit.Contains(query))) foundProds.Add(prod);
+            foreach (var prod in allProds.Where(p => p.UnitPrice == unitPrice)) foundProds.Add(prod);
+            foreach (var prod in allProds.Where(p => p.UnitsInStock == unitStock)) foundProds.Add(prod);
+            foreach (var prod in allProds.Where(p => p.UnitsOnOrder == unitsOrder)) foundProds.Add(prod);
+            foreach (var prod in allProds.Where(p => p.ReorderLevel == reorder)) foundProds.Add(prod);
+            foreach (var prod in allProds.Where(p => p.Discontinued == distcontinued)) foundProds.Add(prod);
+
+
+            return foundProds;
+        }
+
 
         public void DeleteProduct(Products prod)
         {
@@ -351,6 +381,11 @@ namespace NorthwindConsole.Model
         {
             var list = new List<Products>(Products.Where(p => p.Discontinued == false));
             return list;
+        }
+
+        public List<Categories> GetCategories()
+        {
+            return Categories.ToList();
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
