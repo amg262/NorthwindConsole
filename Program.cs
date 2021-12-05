@@ -98,6 +98,8 @@ namespace NorthwindConsole
                                 Console.WriteLine("Distoninued: ");
                                 Boolean.TryParse(Console.ReadLine(), out bool discont);
 
+                                string e = "";
+
                                 var product = new Products
                                 {
                                     ProductName = name, SupplierId = supp, CategoryId = cat, QuantityPerUnit = qtyUnit,
@@ -110,17 +112,57 @@ namespace NorthwindConsole
                             }
                             else if (productPortal == 2)
                             {
-                                Console.WriteLine("Enter Prod Id: ");
+                                Console.WriteLine("Product ID input will select and overwrite values with new inputs");
+                                Console.WriteLine("Edit Product with Id: ");
                                 Int32.TryParse(Console.ReadLine(), out int prodId);
 
                                 Console.WriteLine("Enter new name: ");
-                                string newName = Console.ReadLine();
+                                string name = Console.ReadLine();
 
+                                Console.WriteLine("New Supplier ID: ");
+                                Int32.TryParse(Console.ReadLine(), out int supp);
+
+                                Console.WriteLine("New Cat ID: ");
+                                Int32.TryParse(Console.ReadLine(), out int cat);
+
+                                Console.WriteLine("New Qty/Unit: ");
+                                string qtyUnit = Console.ReadLine();
+
+                                Console.WriteLine("New Unit Price: ");
+                                Decimal.TryParse(Console.ReadLine(), out decimal unitPrice);
+
+                                Console.WriteLine("New Unit Stock: ");
+                                Int32.TryParse(Console.ReadLine(), out int unitStock);
+
+                                Console.WriteLine("New Units Order: ");
+                                Int32.TryParse(Console.ReadLine(), out int unitOrder);
+
+                                Console.WriteLine("New Reorder Level: ");
+                                Int32.TryParse(Console.ReadLine(), out int reorder);
+
+                                Console.WriteLine("New Distoninued: ");
+                                Boolean.TryParse(Console.ReadLine(), out bool discont);
+
+                                var product = new Products
+                                {
+                                    ProductName = name, SupplierId = supp, CategoryId = cat, QuantityPerUnit = qtyUnit,
+                                    UnitPrice = unitPrice, UnitsInStock = (short) unitStock,
+                                    UnitsOnOrder = (short) unitOrder, ReorderLevel = (short) reorder,
+                                    Discontinued = discont
+                                };
 
                                 Products foundProd = db.GetProductById(prodId);
 
                                 foundProd.ToString();
-                                foundProd.ProductName = newName;
+                                foundProd.ProductName = name;
+                                foundProd.SupplierId = supp;
+                                foundProd.CategoryId = cat;
+                                foundProd.QuantityPerUnit = qtyUnit;
+                                foundProd.UnitPrice = unitPrice;
+                                foundProd.UnitsInStock = (short) unitStock;
+                                foundProd.UnitsOnOrder = (short) unitOrder;
+                                foundProd.ReorderLevel = (short) reorder;
+                                foundProd.Discontinued = discont;
 
                                 db.EditProduct(foundProd);
 
@@ -202,7 +244,7 @@ namespace NorthwindConsole
                         Console.WriteLine("4) Display all Categories and their related products");
                         Console.WriteLine("\"q\" to quit");
                         choice = Console.ReadLine();
-                        Console.Clear();
+                        //Console.Clear();
                         logger.Info($"Option {choice} selected");
 
 
