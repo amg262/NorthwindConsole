@@ -314,6 +314,26 @@ namespace NorthwindConsole.Model
             Products.Add(prod);
             SaveChanges();
         }
+
+
+        public void EditProduct(Products prod)
+        {
+            Products.Update(prod);
+            SaveChanges();
+        }
+
+        public Products GetProductById(int prodId)
+        {
+            var prod = new Products() {ProductId = prodId};
+            return prod;
+        }
+
+        public List<Products> GetProductListById(Products prod)
+        {
+            var list = new List<Products>(Products.Where(p => p.ProductId == prod.ProductId));
+            return list;
+        }
+
         public List<Products> GetDiscontinuedProds()
         {
             var list = new List<Products>(Products.Where(p => p.Discontinued == true));

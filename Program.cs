@@ -104,13 +104,29 @@ namespace NorthwindConsole
                                     UnitsOnOrder = (short) unitOrder, ReorderLevel = (short) reorder,
                                     Discontinued = discont
                                 };
-                                
+
                                 db.AddProduct(product);
-                                
-                                
                             }
                             else if (productPortal == 2)
                             {
+                                Console.WriteLine("Enter Prod Id: ");
+                                Int32.TryParse(Console.ReadLine(), out int prodId);
+
+                                Console.WriteLine("Enter new name: ");
+                                string newName = Console.ReadLine();
+
+
+                                Products foundProd = db.GetProductById(prodId);
+
+                                foundProd.ToString();
+                                foundProd.ProductName = newName;
+
+                                db.EditProduct(foundProd);
+
+                                Products output = db.GetProductById(prodId);
+                                //Products newProd = new Products() {ProductName = "New new"};
+                                output.ToString();
+                                Console.WriteLine();
                             }
                             else if (productPortal == 3)
                             {
