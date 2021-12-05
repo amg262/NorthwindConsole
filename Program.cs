@@ -63,6 +63,7 @@ namespace NorthwindConsole
                             Console.WriteLine($"1) Add New Product");
                             Console.WriteLine("2) Edit Product");
                             Console.WriteLine("3) Display");
+                            Console.WriteLine("4) Search");
 
                             Int32.TryParse(Console.ReadLine(), out int productPortal);
 
@@ -170,6 +171,15 @@ namespace NorthwindConsole
                                         Console.WriteLine(prod.Discontinued);
                                     }
                                 }
+                            }
+                            else if (productPortal == 4)
+                            {
+                                Console.ForegroundColor = ConsoleColor.Magenta;
+
+                                Console.WriteLine(
+                                    "Entering the query field will search every single field in the product record row");
+                                Console.WriteLine("Query");
+                                string query = Console.ReadLine();
                             }
                             else
                             {
