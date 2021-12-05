@@ -1,0 +1,10 @@
+﻿EmployeeId,LastName,FirstName,Title,TitleOfCourtesy,BirthDate,HireDate,Address,City,Region,PostalCode,Country,HomePhone,Extension,ReportsTo
+1,Davolio,Nancy,Sales Representative,Ms.,1972-07-02 08:20:21.233,2015-11-24 08:20:21.233,507 - 20th Ave. E. Apt. 2A,Seattle,WA,98122,USA,(206) 555-9857,5467,2
+2,Fuller,Andrew,"Vice President, Sales",Dr.,1975-09-14 08:20:21.233,2016-03-08 08:20:21.233,908 W. Capital Way,Tacoma,WA,98401,USA,(206) 555-9482,3457,NULL
+3,Leverling,Janet,Sales Representative,Ms.,1987-02-26 08:20:21.233,2015-10-25 08:20:21.233,722 Moss Bay Blvd.,Kirkland,WA,98033,USA,(206) 555-3412,3355,2
+4,Peacock,Margaret,Sales Representative,Mrs.,1961-04-13 08:20:21.233,2016-11-25 08:20:21.233,4110 Old Redmond Rd.,Redmond,WA,98052,USA,(206) 555-8122,5176,2
+5,Buchanan,Steven,Sales Manager,Mr.,1978-09-27 08:20:21.233,2017-05-11 08:20:21.233,14 Garrett Hill,London,NULL,SW1 8JR,UK,(71) 555-4848,3453,2
+6,Suyama,Michael,Sales Representative,Mr.,1987-01-25 08:20:21.233,2017-05-11 08:20:21.233,Coventry House Miner Rd.,London,NULL,EC2 7JR,UK,(71) 555-7773,428,5
+7,King,Robert,Sales Representative,Mr.,1983-12-22 08:20:21.233,2017-07-27 08:20:21.233,Edgeham Hollow Winchester Way,London,NULL,RG1 9SP,UK,(71) 555-5598,465,5
+8,Callahan,Laura,Inside Sales Coordinator,Ms.,1981-08-03 08:20:21.233,2017-09-28 08:20:21.233,4726 - 11th Ave. N.E.,Seattle,WA,98105,USA,(206) 555-1189,2344,2
+9,Dodsworth,Anne,Sales Representative,Ms.,1989-08-21 08:20:21.233,2018-06-10 08:20:21.233,7 Houndstooth Rd.,London,NULL,WG2 7LT,UK,(71) 555-4444,452,5
