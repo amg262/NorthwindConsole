@@ -64,6 +64,7 @@ namespace NorthwindConsole
                             Console.WriteLine("2) Edit Product");
                             Console.WriteLine("3) Display");
                             Console.WriteLine("4) Search");
+                            Console.WriteLine("5) Delete");
 
                             Int32.TryParse(Console.ReadLine(), out int productPortal);
 
@@ -213,6 +214,21 @@ namespace NorthwindConsole
                                         Console.WriteLine(prod.Discontinued);
                                     }
                                 }
+                                else if (prodDisplayPortal == 4)
+                                {
+                                }
+                                else if (prodDisplayPortal == 5)
+                                {
+                                    Console.WriteLine("Show Product with Id: ");
+                                    Int32.TryParse(Console.ReadLine(), out int id);
+
+                                    var showProd = db.GetProductById(id);
+
+                                    Console.WriteLine($"{showProd.ToString()}");
+                                }
+                                else
+                                {
+                                }
                             }
                             else if (productPortal == 4)
                             {
@@ -222,6 +238,15 @@ namespace NorthwindConsole
                                     "Entering the query field will search every single field in the product record row");
                                 Console.WriteLine("Query");
                                 string query = Console.ReadLine();
+                            }
+                            else if (productPortal == 5)
+                            {
+                                Console.WriteLine("Enter Prod Id to Delete");
+                                Int32.TryParse(Console.ReadLine(), out int id);
+
+                                var prod = db.GetProductById(id);
+                                db.DeleteProduct(prod);
+                                Console.WriteLine("Delete successful");
                             }
                             else
                             {

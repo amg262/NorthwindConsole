@@ -316,6 +316,13 @@ namespace NorthwindConsole.Model
         }
 
 
+        public void DeleteProduct(Products prod)
+        {
+            Products.Remove(prod);
+            SaveChanges();
+            Console.WriteLine("Delete successful");
+        }
+
         public void EditProduct(Products prod)
         {
             Products.Update(prod);
