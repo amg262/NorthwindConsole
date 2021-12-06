@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
@@ -389,5 +390,20 @@ namespace NorthwindConsole.Model
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+        public IEnumerable QueryCategorys(string query)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Categorys GetCategoryById(int result)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteCategory(Categorys prod)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
