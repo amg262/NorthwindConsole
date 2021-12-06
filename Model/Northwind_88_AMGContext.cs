@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
+using NLog;
+using NLog.Web;
 
 
 namespace NorthwindConsole.Model
@@ -19,6 +22,9 @@ namespace NorthwindConsole.Model
             : base(options)
         {
         }
+
+        private static NLog.Logger logger = NLogBuilder.ConfigureNLog(Directory.GetCurrentDirectory() + "\\nlog.config")
+            .GetCurrentClassLogger();
 
         public virtual DbSet<Categories> Categories { get; set; }
         public virtual DbSet<Customers> Customers { get; set; }
@@ -314,6 +320,7 @@ namespace NorthwindConsole.Model
         {
             Products.Add(prod);
             SaveChanges();
+            logger.Info($"{prod.ToString()} added");
         }
 
         public List<Products> QueryProducts(string query)
@@ -349,15 +356,17 @@ namespace NorthwindConsole.Model
 
         public void DeleteProduct(Products prod)
         {
+            var pointer = prod;
             Products.Remove(prod);
             SaveChanges();
-            Console.WriteLine("Delete successful");
+            logger.Info($"{pointer.ToString()} deleted");
         }
 
         public void EditProduct(Products prod)
         {
             Products.Update(prod);
             SaveChanges();
+            logger.Info($"{prod.ToString()} editted");
         }
 
         public Products GetProductById(int prodId)
@@ -366,7 +375,7 @@ namespace NorthwindConsole.Model
             return prod;
         }
 
-        public List<Products> GetProductListById(Products prod)
+        public List<Products> GetProductInListById(Products prod)
         {
             var list = new List<Products>(Products.Where(p => p.ProductId == prod.ProductId));
             return list;
@@ -391,29 +400,119 @@ namespace NorthwindConsole.Model
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 
-        public IEnumerable QueryCategories(string query)
+        public List<Categories> QueryCategories(string query)
         {
-            throw new NotImplementedException();
+            var foundCats = new List<Categories>();
+
+            var allCats = Categories.ToList();
+            Int32.TryParse(query, out int catId);
+            Int32.TryParse(query, out int prodId);
+
+            foreach (var cat in allCats.Where(c => c.CategoryId == catId)) foundCats.Add(cat);
+            foreach (var cat in allCats.Where(c => c.CategoryName.Contains(query))) foundCats.Add(cat);
+            foreach (var cat in allCats.Where(c => c.Description.Contains(query))) foundCats.Add(cat);
+
+
+            return foundCats;
         }
 
-        public Categories GetCategoryById(int result)
+
+        public List<Categories> GetCategoryInListById(Categories cat)
         {
-            throw new NotImplementedException();
+            var list = new List<Categories>(Categories.Where(c => c.CategoryId == cat.CategoryId));
+            return list;
+        }
+
+        public Categories GetCategoryById(int catId)
+        {
+            var cat = new Categories() {CategoryId = catId};
+            return cat;
         }
 
         public void DeleteCategory(Categories cat)
         {
-            throw new NotImplementedException();
+            var pointer = cat;
+            Categories.Remove(cat);
+            logger.Info($"{cat.ToString()} deleted");
+            SaveChanges();
         }
 
         public void AddCategory(Categories cat)
         {
-            throw new NotImplementedException();
+            Categories.Add(cat);
+            SaveChanges();
+            logger.Info($"{cat.ToString()} added");
         }
 
         public void EditCategory(Categories cat)
         {
-            throw new NotImplementedException();
+            Categories.Update(cat);
+            SaveChanges();
+            logger.Info($"{cat.ToString()} editted");
+        }
+
+        public void GetOutputCategoryProductData()
+        {
+            var prods = new List<Products>();
+            //var cats = new List<Categories>();
+
+            prods = this.GetProducts();
+            var cats = this.GetCategories();
+
+            foreach (var cat in cats)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+
+                Console.WriteLine($"Cat Id: {cat.CategoryId} Cat Name: {cat.CategoryName} Cat Desc: {cat.Description}");
+
+                foreach (var prod in cat.Products)
+                {
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine($"Product Data");
+                    Console.Write(prod.ToString());
+                }
+
+                Console.ForegroundColor = ConsoleColor.Red;
+            }
+        }
+
+        public void GetCategoryProductDataByCatId(int catId)
+        {
+            var cat = this.GetCategoryById(catId);
+
+            Console.WriteLine($"Product Data for: {cat.CategoryName}");
+
+            foreach (var prod in cat.Products)
+            {
+                Console.Write($"{prod.ToString()}");
+            }
+        }
+
+        public void GetCategoryProductNameByCatId(int catId)
+        {
+            var cats = this.GetCategories();
+
+            var prods = this.GetProducts();
+
+            foreach (var cat in cats)
+            {
+                if (cat.CategoryId == catId)
+                {
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.WriteLine($"Products in {cat.CategoryName}");
+
+                    foreach (var prod in prods)
+                    {
+                        Console.ForegroundColor = ConsoleColor.DarkBlue;
+                        if (prod.CategoryId == catId)
+                        {
+                            Console.WriteLine($"{prod.ProductName}");
+                        }
+                    }
+                }
+            }
+
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
         }
     }
 }

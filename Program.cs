@@ -323,7 +323,7 @@ namespace NorthwindConsole
                                 foundCat.Description = desc;
 
 
-                                db.EditCategory(foundProd);
+                                db.EditCategory(foundCat);
 
                                 Categories output = db.GetCategoryById(catId);
                                 output.ToString();
@@ -334,8 +334,10 @@ namespace NorthwindConsole
                                 Console.WriteLine("You entered Category Display Portal");
                                 Console.WriteLine("1) Display All Categories showing Category Name");
                                 Console.WriteLine("2) Display All Categories showing All Fields");
-                                Console.WriteLine("5) Display a Specific Category show All Fields");
+                                Console.WriteLine("5) Display a Specific Category");
                                 Console.WriteLine("6) Display Categories + Related Product data");
+                                Console.WriteLine("7) Display Product Data for Category Id");
+
 
                                 Int32.TryParse(Console.ReadLine(), out int catDisplayPortal);
 
@@ -365,6 +367,17 @@ namespace NorthwindConsole
 
                                     Console.WriteLine($"{showCat.ToString()}");
                                 }
+                                else if (catDisplayPortal == 6)
+                                {
+                                    db.GetOutputCategoryProductData();
+                                }
+                                else if (catDisplayPortal == 7)
+                                {
+                                    Console.WriteLine("Product Data for Cat Id of: ");
+                                    Int32.TryParse(Console.ReadLine(), out int id);
+
+                                    db.GetCategoryProductNameByCatId(id);
+                                }
                                 else
                                 {
                                 }
@@ -380,7 +393,7 @@ namespace NorthwindConsole
 
                                 var queriedCats = db.QueryCategories(query);
 
-                                Console.WriteLine($"Found {queriedCats.Count} Category(s)");
+                                Console.WriteLine($"Found {queriedCats} Category(s)");
 
                                 foreach (var prod in queriedCats)
                                 {
