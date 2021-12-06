@@ -393,14 +393,21 @@ namespace NorthwindConsole
 
                                 var queriedCats = db.QueryCategories(query);
 
-                                Console.WriteLine($"Found {queriedCats} Category(s)");
+                                var qls = new List<Categories>();
 
-                                foreach (var prod in queriedCats)
+                                foreach (var ql in queriedCats)
                                 {
-                                    Console.WriteLine($"{prod.ToString()}");
+                                    qls.Add(ql);
+                                    Console.WriteLine($"{ql.CategoryName}");
                                 }
 
+
                                 Console.WriteLine("Search Successful!");
+
+                                // foreach (var q in qls)
+                                // {
+                                //     Console.WriteLine($"{q.CategoryId} {q.CategoryName}");
+                                // }
                             }
                             else if (catPortal == 5)
                             {

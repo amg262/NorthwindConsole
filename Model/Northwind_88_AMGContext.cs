@@ -404,13 +404,13 @@ namespace NorthwindConsole.Model
         {
             var foundCats = new List<Categories>();
 
-            var allCats = Categories.ToList();
+            List<Categories> allCats = Categories.ToList();
             Int32.TryParse(query, out int catId);
             Int32.TryParse(query, out int prodId);
 
-            foreach (var cat in allCats.Where(c => c.CategoryId == catId)) foundCats.Add(cat);
-            foreach (var cat in allCats.Where(c => c.CategoryName.Contains(query))) foundCats.Add(cat);
-            foreach (var cat in allCats.Where(c => c.Description.Contains(query))) foundCats.Add(cat);
+            foreach (Categories cat in allCats.Where(c => c.CategoryId == catId)) foundCats.Add(cat);
+            foreach (Categories cat in allCats.Where(c => c.CategoryName.Contains(query))) foundCats.Add(cat);
+            foreach (Categories cat in allCats.Where(c => c.Description.Contains(query))) foundCats.Add(cat);
 
 
             return foundCats;
@@ -461,18 +461,18 @@ namespace NorthwindConsole.Model
 
             foreach (var cat in cats)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
+                Console.ForegroundColor = ConsoleColor.Blue;
 
                 Console.WriteLine($"Cat Id: {cat.CategoryId} Cat Name: {cat.CategoryName} Cat Desc: {cat.Description}");
 
                 foreach (var prod in cat.Products)
                 {
-                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.ForegroundColor = ConsoleColor.DarkBlue;
                     Console.WriteLine($"Product Data");
                     Console.Write(prod.ToString());
                 }
 
-                Console.ForegroundColor = ConsoleColor.Red;
+                Console.ForegroundColor = ConsoleColor.DarkCyan;
             }
         }
 
