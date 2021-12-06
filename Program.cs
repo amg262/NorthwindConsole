@@ -50,7 +50,7 @@ namespace NorthwindConsole
                     Console.WriteLine("3) Shippers");
                     Console.WriteLine("4) Territories");
                     Console.WriteLine("5) Regions");
-                    Console.WriteLine("");
+                    Console.WriteLine("6) Employee Territories");
                     Console.WriteLine("");
                     Console.WriteLine("");
 

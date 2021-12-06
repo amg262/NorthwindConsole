@@ -10,6 +10,11 @@ namespace NorthwindConsole.Model
             Territories = new HashSet<Territories>();
         }
 
+        public override string ToString()
+        {
+            return $"Reg Id: {RegionId} Desc: {RegionDescription}";
+        }
+
         public int RegionId { get; set; }
         public string RegionDescription { get; set; }
 

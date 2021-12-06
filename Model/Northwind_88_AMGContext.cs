@@ -514,5 +514,157 @@ namespace NorthwindConsole.Model
 
             Console.ForegroundColor = ConsoleColor.DarkCyan;
         }
+
+
+        /*
+         * TEMPLATE FOR EACH OF THE EASY CLASSES
+         */
+        public void AddRegion(Region reg)
+        {
+            Region.Add(reg);
+            SaveChanges();
+            logger.Info($"{reg.ToString()} added");
+        }
+
+        public List<Region> GetRegions()
+        {
+            return Region.ToList();
+        }
+
+
+        public void DeleteRegion(Region reg)
+        {
+            var pointer = reg;
+            Region.Remove(reg);
+            logger.Info($"{reg.RegionId} removed");
+            SaveChanges();
+        }
+
+        public Region GetRegionById(int id)
+        {
+            Region reg = new Region() {RegionId = id};
+            return reg;
+        }
+
+        public void EditRegion(Region reg)
+        {
+            Region.Update(reg);
+            SaveChanges();
+            logger.Info($"{reg.RegionId} updated");
+        }
+
+
+        /*
+         * TEMPLATE FOR EACH OF THE EASY CLASSES
+         */
+        public void AddTerritory(Territories ter)
+        {
+            Territories.Add(ter);
+            SaveChanges();
+            logger.Info($"{ter.ToString()} added");
+        }
+
+        public List<Territories> GetTerritories()
+        {
+            return Territories.ToList();
+        }
+
+
+        public void DeleteTerritory(Territories ter)
+        {
+            var pointer = ter;
+            Territories.Remove(ter);
+            logger.Info($"{ter.TerritoryId} removed");
+            SaveChanges();
+        }
+
+        public Territories GetTerritoryById(string id)
+        {
+            Territories ter = new Territories() {TerritoryId = id};
+            return ter;
+        }
+
+        public void EditTerritory(Territories ter)
+        {
+            Territories.Update(ter);
+            SaveChanges();
+            logger.Info($"{ter.TerritoryId} updated");
+        }
+
+
+        /*
+         * TEMPLATE FOR EACH OF THE EASY CLASSES
+         */
+        public void AddShipper(Shippers ship)
+        {
+            Shippers.Add(ship);
+            SaveChanges();
+            logger.Info($"{ship.ToString()} added");
+        }
+
+        public List<Shippers> GetShippers()
+        {
+            return Shippers.ToList();
+        }
+
+
+        public void DeleteShipper(Shippers ship)
+        {
+            var pointer = ship;
+            Shippers.Remove(ship);
+            logger.Info($"{ship.ShipperId} removed");
+            SaveChanges();
+        }
+
+        public Shippers GetShipperById(int id)
+        {
+            Shippers ship = new Shippers() {ShipperId = id};
+            return ship;
+        }
+
+        public void EditShipper(Shippers ship)
+        {
+            Shippers.Update(ship);
+            SaveChanges();
+            logger.Info($"{ship.ShipperId} updated");
+        }
+
+
+        /*
+         * TEMPLATE FOR EACH OF THE EASY CLASSES
+         */
+        public void AddEt(EmployeeTerritories et)
+        {
+            EmployeeTerritories.Add(et);
+            SaveChanges();
+            logger.Info($"{et.ToString()} added");
+        }
+
+        public List<EmployeeTerritories> GetEt()
+        {
+            return EmployeeTerritories.ToList();
+        }
+
+
+        public void DeleteEt(EmployeeTerritories et)
+        {
+            var pointer = et;
+            EmployeeTerritories.Remove(et);
+            logger.Info($"{et.EmployeeId} {et.TerritoryId} removed");
+            SaveChanges();
+        }
+
+        public EmployeeTerritories GetEtnById(int eId, string tId)
+        {
+            EmployeeTerritories et = new EmployeeTerritories() {EmployeeId = eId, TerritoryId = tId};
+            return et;
+        }
+
+        public void EditEt(EmployeeTerritories et)
+        {
+            EmployeeTerritories.Update(et);
+            SaveChanges();
+            logger.Info($"{et.EmployeeId} {et.TerritoryId} editted");
+        }
     }
 }

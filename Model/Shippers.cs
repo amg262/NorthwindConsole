@@ -10,6 +10,11 @@ namespace NorthwindConsole.Model
             Orders = new HashSet<Orders>();
         }
 
+        public override string ToString()
+        {
+            return $"Ship Id: {ShipperId} Company Name: {CompanyName} Phone: {Phone}";
+        }
+
         public int ShipperId { get; set; }
         public string CompanyName { get; set; }
         public string Phone { get; set; }

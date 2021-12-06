@@ -10,6 +10,11 @@ namespace NorthwindConsole.Model
             EmployeeTerritories = new HashSet<EmployeeTerritories>();
         }
 
+        public override string ToString()
+        {
+            return $"Terr Id: {TerritoryId} Desc: {TerritoryDescription} Region Id: {RegionId}";
+        }
+
         public string TerritoryId { get; set; }
         public string TerritoryDescription { get; set; }
         public int RegionId { get; set; }
