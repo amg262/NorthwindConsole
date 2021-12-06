@@ -282,43 +282,18 @@ namespace NorthwindConsole
 
                             if (catPortal == 1)
                             {
-                                Console.WriteLine("Name: ");
+                                Console.WriteLine("Cat Name: ");
                                 string name = Console.ReadLine();
-                                Console.WriteLine("Supplier ID: ");
-                                Int32.TryParse(Console.ReadLine(), out int supp);
 
-                                Console.WriteLine("Cat ID: ");
-                                Int32.TryParse(Console.ReadLine(), out int cat);
+                                Console.WriteLine("Cat Description: ");
+                                string desc = Console.ReadLine();
 
-                                Console.WriteLine("Qty/Unit: ");
-                                string qtyUnit = Console.ReadLine();
-
-                                Console.WriteLine("Unit Price: ");
-                                Decimal.TryParse(Console.ReadLine(), out decimal unitPrice);
-
-                                Console.WriteLine("Unit Stock: ");
-                                Int32.TryParse(Console.ReadLine(), out int unitStock);
-
-
-                                // string unitStock = Console.ReadLine();
-
-                                Console.WriteLine("Units Order: ");
-                                Int32.TryParse(Console.ReadLine(), out int unitOrder);
-
-                                Console.WriteLine("Reorder Level: ");
-                                Int32.TryParse(Console.ReadLine(), out int reorder);
-
-                                Console.WriteLine("Distoninued: ");
-                                Boolean.TryParse(Console.ReadLine(), out bool discont);
 
                                 string e = "";
 
-                                var Category = new Categorys
+                                var Category = new Categories()
                                 {
-                                    CategoryName = name, SupplierId = supp, CategoryId = cat, QuantityPerUnit = qtyUnit,
-                                    UnitPrice = unitPrice, UnitsInStock = (short) unitStock,
-                                    UnitsOnOrder = (short) unitOrder, ReorderLevel = (short) reorder,
-                                    Discontinued = discont
+                                    CategoryName = name, Description = desc
                                 };
 
                                 db.AddCategory(Category);
@@ -327,104 +302,56 @@ namespace NorthwindConsole
                             {
                                 Console.WriteLine("Category ID input will select and overwrite values with new inputs");
                                 Console.WriteLine("Edit Category with Id: ");
-                                Int32.TryParse(Console.ReadLine(), out int prodId);
+                                Int32.TryParse(Console.ReadLine(), out int catId);
 
-                                Console.WriteLine("Enter new name: ");
+                                Console.WriteLine("Enter new cat name: ");
                                 string name = Console.ReadLine();
 
-                                Console.WriteLine("New Supplier ID: ");
-                                Int32.TryParse(Console.ReadLine(), out int supp);
+                                Console.WriteLine("Enter new cat desc: ");
+                                string desc = Console.ReadLine();
 
-                                Console.WriteLine("New Cat ID: ");
-                                Int32.TryParse(Console.ReadLine(), out int cat);
-
-                                Console.WriteLine("New Qty/Unit: ");
-                                string qtyUnit = Console.ReadLine();
-
-                                Console.WriteLine("New Unit Price: ");
-                                Decimal.TryParse(Console.ReadLine(), out decimal unitPrice);
-
-                                Console.WriteLine("New Unit Stock: ");
-                                Int32.TryParse(Console.ReadLine(), out int unitStock);
-
-                                Console.WriteLine("New Units Order: ");
-                                Int32.TryParse(Console.ReadLine(), out int unitOrder);
-
-                                Console.WriteLine("New Reorder Level: ");
-                                Int32.TryParse(Console.ReadLine(), out int reorder);
-
-                                Console.WriteLine("New Distoninued: ");
-                                Boolean.TryParse(Console.ReadLine(), out bool discont);
-
-                                var Category = new Categorys
+                                var Category = new Categories()
                                 {
-                                    CategoryName = name, SupplierId = supp, CategoryId = cat, QuantityPerUnit = qtyUnit,
-                                    UnitPrice = unitPrice, UnitsInStock = (short) unitStock,
-                                    UnitsOnOrder = (short) unitOrder, ReorderLevel = (short) reorder,
-                                    Discontinued = discont
+                                    CategoryName = name, Description = desc
                                 };
 
-                                Categorys foundProd = db.GetCategoryById(prodId);
+                                Categories foundCat = db.GetCategoryById(catId);
 
-                                foundProd.ToString();
-                                foundProd.CategoryName = name;
-                                foundProd.SupplierId = supp;
-                                foundProd.CategoryId = cat;
-                                foundProd.QuantityPerUnit = qtyUnit;
-                                foundProd.UnitPrice = unitPrice;
-                                foundProd.UnitsInStock = (short) unitStock;
-                                foundProd.UnitsOnOrder = (short) unitOrder;
-                                foundProd.ReorderLevel = (short) reorder;
-                                foundProd.Discontinued = discont;
+                                foundCat.ToString();
+                                foundCat.CategoryName = name;
+                                foundCat.CategoryId = catId;
+                                foundCat.Description = desc;
+
 
                                 db.EditCategory(foundProd);
 
-                                Categorys output = db.GetCategoryById(prodId);
-                                //Categorys newProd = new Categorys() {CategoryName = "New new"};
+                                Categories output = db.GetCategoryById(catId);
                                 output.ToString();
                                 Console.WriteLine();
                             }
                             else if (catPortal == 3)
                             {
                                 Console.WriteLine("You entered Category Display Portal");
-                                Console.WriteLine("1) Display All Categorys showing Category Name");
-                                Console.WriteLine("2) Display All Categorys showing All Fields");
-                                Console.WriteLine("3) Display Discontinued Categorys");
-                                Console.WriteLine("4) Display Active Categorys");
+                                Console.WriteLine("1) Display All Categories showing Category Name");
+                                Console.WriteLine("2) Display All Categories showing All Fields");
                                 Console.WriteLine("5) Display a Specific Category show All Fields");
+                                Console.WriteLine("6) Display Categories + Related Product data");
 
                                 Int32.TryParse(Console.ReadLine(), out int catDisplayPortal);
 
                                 if (catDisplayPortal == 1)
                                 {
-                                    foreach (var prod in db.GetCategorys())
+                                    foreach (var cat in db.GetCategories())
                                     {
-                                        Console.WriteLine(prod.CategoryName);
+                                        Console.WriteLine(cat.CategoryName);
                                     }
                                 }
                                 else if (catDisplayPortal == 2)
                                 {
-                                    foreach (var prod in db.GetCategorys())
-                                    {
-                                        if (prod.Discontinued == true)
-                                        {
-                                            Console.ForegroundColor = ConsoleColor.Red;
-                                        }
-                                        else
-                                        {
-                                            Console.ForegroundColor = ConsoleColor.Cyan;
-                                        }
-
-                                        Console.WriteLine(prod.ToString());
-                                    }
+                                    foreach (var cat in db.GetCategories()) Console.WriteLine(cat.ToString());
                                 }
                                 else if (catDisplayPortal == 3)
                                 {
-                                    foreach (var prod in db.GetDiscontinuedProds())
-                                    {
-                                        Console.WriteLine(prod.CategoryName);
-                                        Console.WriteLine(prod.Discontinued);
-                                    }
                                 }
                                 else if (catDisplayPortal == 4)
                                 {
@@ -434,9 +361,9 @@ namespace NorthwindConsole
                                     Console.WriteLine("Show Category with Id: ");
                                     Int32.TryParse(Console.ReadLine(), out int id);
 
-                                    var showProd = db.GetCategoryById(id);
+                                    var showCat = db.GetCategoryById(id);
 
-                                    Console.WriteLine($"{showProd.ToString()}");
+                                    Console.WriteLine($"{showCat.ToString()}");
                                 }
                                 else
                                 {
@@ -451,11 +378,11 @@ namespace NorthwindConsole
                                 Console.WriteLine("Search Query");
                                 string query = Console.ReadLine();
 
-                                var queriedProds = db.QueryCategorys(query);
+                                var queriedCats = db.QueryCategories(query);
 
-                                Console.WriteLine($"Found {queriedProds.Count} Category(s)");
+                                Console.WriteLine($"Found {queriedCats.Count} Category(s)");
 
-                                foreach (var prod in queriedProds)
+                                foreach (var prod in queriedCats)
                                 {
                                     Console.WriteLine($"{prod.ToString()}");
                                 }
@@ -464,11 +391,11 @@ namespace NorthwindConsole
                             }
                             else if (catPortal == 5)
                             {
-                                Console.WriteLine("Enter Prod Id to Delete");
+                                Console.WriteLine("Enter Cat Id to Delete");
                                 Int32.TryParse(Console.ReadLine(), out int id);
 
-                                var prod = db.GetCategoryById(id);
-                                db.DeleteCategory(prod);
+                                var cat = db.GetCategoryById(id);
+                                db.DeleteCategory(cat);
                                 Console.WriteLine("Delete successful");
                             }
                             else

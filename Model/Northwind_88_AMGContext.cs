@@ -391,17 +391,27 @@ namespace NorthwindConsole.Model
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 
-        public IEnumerable QueryCategorys(string query)
+        public IEnumerable QueryCategories(string query)
         {
             throw new NotImplementedException();
         }
 
-        public Categorys GetCategoryById(int result)
+        public Categories GetCategoryById(int result)
         {
             throw new NotImplementedException();
         }
 
-        public void DeleteCategory(Categorys prod)
+        public void DeleteCategory(Categories cat)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddCategory(Categories cat)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void EditCategory(Categories cat)
         {
             throw new NotImplementedException();
         }
