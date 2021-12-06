@@ -432,7 +432,7 @@ namespace NorthwindConsole
                                 foreach (var ql in queriedCats)
                                 {
                                     qls.Add(ql);
-                                    Console.Write($"{ql.CategoryName}");
+                                    Console.WriteLine($"{ql.CategoryName}");
                                 }
 
 
