@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
@@ -318,9 +319,38 @@ namespace NorthwindConsole.Model
 
         public void AddProduct(Products prod)
         {
-            Products.Add(prod);
-            SaveChanges();
-            logger.Info($"{prod.ToString()} added");
+            ValidationContext context = new ValidationContext(prod, null, null);
+            List<ValidationResult> results = new List<ValidationResult>();
+
+            var isValid = Validator.TryValidateObject(prod, context, results, true);
+            if (isValid)
+            {
+                var db = new Northwind_88_AMGContext();
+                // check for unique name`
+                if (db.Products.Any(c => c.ProductName == prod.ProductName))
+                {
+                    // generate validation error
+                    isValid = false;
+                    results.Add(new ValidationResult("Name exists", new string[] {"ProductName"}));
+                }
+                else
+                {
+                    logger.Info("Validation passed");
+                    // TODO: save category to db
+
+                    Products.Add(prod);
+                    SaveChanges();
+                    logger.Info($"{prod.ToString()} added");
+                }
+            }
+
+            if (!isValid)
+            {
+                foreach (var result in results)
+                {
+                    logger.Error($"{result.MemberNames.First()} : {result.ErrorMessage}");
+                }
+            }
         }
 
         public List<Products> QueryProducts(string query)
@@ -364,9 +394,38 @@ namespace NorthwindConsole.Model
 
         public void EditProduct(Products prod)
         {
-            Products.Update(prod);
-            SaveChanges();
-            logger.Info($"{prod.ToString()} editted");
+            ValidationContext context = new ValidationContext(prod, null, null);
+            List<ValidationResult> results = new List<ValidationResult>();
+
+            var isValid = Validator.TryValidateObject(prod, context, results, true);
+            if (isValid)
+            {
+                var db = new Northwind_88_AMGContext();
+                // check for unique name`
+                if (db.Products.Any(c => c.ProductName == prod.ProductName))
+                {
+                    // generate validation error
+                    isValid = false;
+                    results.Add(new ValidationResult("Name exists", new string[] {"ProductName"}));
+                }
+                else
+                {
+                    logger.Info("Validation passed");
+                    // TODO: save category to db
+
+                    Products.Update(prod);
+                    SaveChanges();
+                    logger.Info($"{prod.ToString()} editted");
+                }
+            }
+
+            if (!isValid)
+            {
+                foreach (var result in results)
+                {
+                    logger.Error($"{result.MemberNames.First()} : {result.ErrorMessage}");
+                }
+            }
         }
 
         public Products GetProductById(int prodId)
@@ -437,18 +496,76 @@ namespace NorthwindConsole.Model
             SaveChanges();
         }
 
-        public void AddCategory(Categories cat)
+        public void AddCategory(Categories category)
         {
-            Categories.Add(cat);
-            SaveChanges();
-            logger.Info($"{cat.ToString()} added");
+            ValidationContext context = new ValidationContext(category, null, null);
+            List<ValidationResult> results = new List<ValidationResult>();
+
+            var isValid = Validator.TryValidateObject(category, context, results, true);
+            if (isValid)
+            {
+                var db = new Northwind_88_AMGContext();
+                // check for unique name`
+                if (db.Categories.Any(c => c.CategoryName == category.CategoryName))
+                {
+                    // generate validation error
+                    isValid = false;
+                    results.Add(new ValidationResult("Name exists", new string[] {"CategoryName"}));
+                }
+                else
+                {
+                    logger.Info("Validation passed");
+                    // TODO: save category to db
+
+                    Categories.Add(category);
+                    SaveChanges();
+                    logger.Info($"{category.ToString()} added");
+                }
+            }
+
+            if (!isValid)
+            {
+                foreach (var result in results)
+                {
+                    logger.Error($"{result.MemberNames.First()} : {result.ErrorMessage}");
+                }
+            }
         }
 
-        public void EditCategory(Categories cat)
+        public void EditCategory(Categories category)
         {
-            Categories.Update(cat);
-            SaveChanges();
-            logger.Info($"{cat.ToString()} editted");
+            ValidationContext context = new ValidationContext(category, null, null);
+            List<ValidationResult> results = new List<ValidationResult>();
+
+            var isValid = Validator.TryValidateObject(category, context, results, true);
+            if (isValid)
+            {
+                var db = new Northwind_88_AMGContext();
+                // check for unique name`
+                if (db.Categories.Any(c => c.CategoryName == category.CategoryName))
+                {
+                    // generate validation error
+                    isValid = false;
+                    results.Add(new ValidationResult("Name exists", new string[] {"CategoryName"}));
+                }
+                else
+                {
+                    logger.Info("Validation passed");
+                    // TODO: save category to db
+
+                    Categories.Update(category);
+                    SaveChanges();
+                    logger.Info($"{category.ToString()} editted");
+                }
+            }
+
+            if (!isValid)
+            {
+                foreach (var result in results)
+                {
+                    logger.Error($"{result.MemberNames.First()} : {result.ErrorMessage}");
+                }
+            }
         }
 
         public void GetOutputCategoryProductData()
@@ -521,9 +638,38 @@ namespace NorthwindConsole.Model
          */
         public void AddRegion(Region reg)
         {
-            Region.Add(reg);
-            SaveChanges();
-            logger.Info($"{reg.ToString()} added");
+            ValidationContext context = new ValidationContext(reg, null, null);
+            List<ValidationResult> results = new List<ValidationResult>();
+
+            var isValid = Validator.TryValidateObject(reg, context, results, true);
+            if (isValid)
+            {
+                var db = new Northwind_88_AMGContext();
+                // check for unique name`
+                if (db.Region.Any(c => c.RegionDescription == reg.RegionDescription))
+                {
+                    // generate validation error
+                    isValid = false;
+                    results.Add(new ValidationResult("Desc exists", new string[] {"RegionDesc"}));
+                }
+                else
+                {
+                    logger.Info("Validation passed");
+                    // TODO: save category to db
+
+                    Region.Add(reg);
+                    SaveChanges();
+                    logger.Info($"{reg.ToString()} added");
+                }
+            }
+
+            if (!isValid)
+            {
+                foreach (var result in results)
+                {
+                    logger.Error($"{result.MemberNames.First()} : {result.ErrorMessage}");
+                }
+            }
         }
 
         public List<Region> GetRegions()
@@ -548,9 +694,38 @@ namespace NorthwindConsole.Model
 
         public void EditRegion(Region reg)
         {
-            Region.Update(reg);
-            SaveChanges();
-            logger.Info($"{reg.RegionId} updated");
+            ValidationContext context = new ValidationContext(reg, null, null);
+            List<ValidationResult> results = new List<ValidationResult>();
+
+            var isValid = Validator.TryValidateObject(reg, context, results, true);
+            if (isValid)
+            {
+                var db = new Northwind_88_AMGContext();
+                // check for unique name`
+                if (db.Region.Any(c => c.RegionDescription == reg.RegionDescription))
+                {
+                    // generate validation error
+                    isValid = false;
+                    results.Add(new ValidationResult("Desc exists", new string[] {"RegionDesc"}));
+                }
+                else
+                {
+                    logger.Info("Validation passed");
+                    // TODO: save category to db
+
+                    Region.Update(reg);
+                    SaveChanges();
+                    logger.Info($"{reg.RegionId} updated");
+                }
+            }
+
+            if (!isValid)
+            {
+                foreach (var result in results)
+                {
+                    logger.Error($"{result.MemberNames.First()} : {result.ErrorMessage}");
+                }
+            }
         }
 
 
@@ -559,9 +734,37 @@ namespace NorthwindConsole.Model
          */
         public void AddTerritory(Territories ter)
         {
-            Territories.Add(ter);
-            SaveChanges();
-            logger.Info($"{ter.ToString()} added");
+            ValidationContext context = new ValidationContext(ter, null, null);
+            List<ValidationResult> results = new List<ValidationResult>();
+
+            var isValid = Validator.TryValidateObject(ter, context, results, true);
+            if (isValid)
+            {
+                var db = new Northwind_88_AMGContext();
+                // check for unique name`
+                if (db.Territories.Any(c => c.TerritoryDescription == ter.TerritoryDescription))
+                {
+                    // generate validation error
+                    isValid = false;
+                    results.Add(new ValidationResult("Desc exists", new string[] {"TerrDesc"}));
+                }
+                else
+                {
+                    logger.Info("Validation passed");
+                    // TODO: save category to db
+                    Territories.Add(ter);
+                    SaveChanges();
+                    logger.Info($"{ter.ToString()} added");
+                }
+            }
+
+            if (!isValid)
+            {
+                foreach (var result in results)
+                {
+                    logger.Error($"{result.MemberNames.First()} : {result.ErrorMessage}");
+                }
+            }
         }
 
         public List<Territories> GetTerritories()
@@ -586,9 +789,37 @@ namespace NorthwindConsole.Model
 
         public void EditTerritory(Territories ter)
         {
-            Territories.Update(ter);
-            SaveChanges();
-            logger.Info($"{ter.TerritoryId} updated");
+            ValidationContext context = new ValidationContext(ter, null, null);
+            List<ValidationResult> results = new List<ValidationResult>();
+
+            var isValid = Validator.TryValidateObject(ter, context, results, true);
+            if (isValid)
+            {
+                var db = new Northwind_88_AMGContext();
+                // check for unique name`
+                if (db.Territories.Any(c => c.TerritoryDescription == ter.TerritoryDescription))
+                {
+                    // generate validation error
+                    isValid = false;
+                    results.Add(new ValidationResult("Desc exists", new string[] {"TerrDesc"}));
+                }
+                else
+                {
+                    logger.Info("Validation passed");
+                    // TODO: save category to db
+                    Territories.Update(ter);
+                    SaveChanges();
+                    logger.Info($"{ter.TerritoryId} updated");
+                }
+            }
+
+            if (!isValid)
+            {
+                foreach (var result in results)
+                {
+                    logger.Error($"{result.MemberNames.First()} : {result.ErrorMessage}");
+                }
+            }
         }
 
 
@@ -597,9 +828,44 @@ namespace NorthwindConsole.Model
          */
         public void AddShipper(Shippers ship)
         {
-            Shippers.Add(ship);
-            SaveChanges();
-            logger.Info($"{ship.ToString()} added");
+            ValidationContext context = new ValidationContext(ship, null, null);
+            List<ValidationResult> results = new List<ValidationResult>();
+
+            var isValid = Validator.TryValidateObject(ship, context, results, true);
+            if (isValid)
+            {
+                var db = new Northwind_88_AMGContext();
+                // check for unique name`
+                if (db.Shippers.Any(c => c.CompanyName == ship.CompanyName))
+                {
+                    // generate validation error
+                    isValid = false;
+                    results.Add(new ValidationResult("Name exists", new string[] {"CompanyName"}));
+                }
+
+                if (db.Shippers.Any(c => c.Phone == ship.Phone))
+                {
+                    // generate validation error
+                    isValid = false;
+                    results.Add(new ValidationResult("phone exists", new string[] {"Phone"}));
+                }
+                else
+                {
+                    logger.Info("Validation passed");
+                    // TODO: save category to db
+                    Shippers.Add(ship);
+                    SaveChanges();
+                    logger.Info($"{ship.ShipperId} add");
+                }
+            }
+
+            if (!isValid)
+            {
+                foreach (var result in results)
+                {
+                    logger.Error($"{result.MemberNames.First()} : {result.ErrorMessage}");
+                }
+            }
         }
 
         public List<Shippers> GetShippers()
@@ -624,9 +890,45 @@ namespace NorthwindConsole.Model
 
         public void EditShipper(Shippers ship)
         {
-            Shippers.Update(ship);
-            SaveChanges();
-            logger.Info($"{ship.ShipperId} updated");
+            ValidationContext context = new ValidationContext(ship, null, null);
+            List<ValidationResult> results = new List<ValidationResult>();
+
+            var isValid = Validator.TryValidateObject(ship, context, results, true);
+            if (isValid)
+            {
+                var db = new Northwind_88_AMGContext();
+                // check for unique name`
+                if (db.Shippers.Any(c => c.CompanyName == ship.CompanyName))
+                {
+                    // generate validation error
+                    isValid = false;
+                    results.Add(new ValidationResult("name exists", new string[] {"CompanyName"}));
+                }
+
+                if (db.Shippers.Any(c => c.Phone == ship.Phone))
+                {
+                    // generate validation error
+                    isValid = false;
+                    results.Add(new ValidationResult("phone exists", new string[] {"Phone"}));
+                }
+                else
+                {
+                    logger.Info("Validation passed");
+                    // TODO: save category to db
+
+                    Shippers.Update(ship);
+                    SaveChanges();
+                    logger.Info($"{ship.ShipperId} updated");
+                }
+            }
+
+            if (!isValid)
+            {
+                foreach (var result in results)
+                {
+                    logger.Error($"{result.MemberNames.First()} : {result.ErrorMessage}");
+                }
+            }
         }
 
 
@@ -635,9 +937,39 @@ namespace NorthwindConsole.Model
          */
         public void AddEt(EmployeeTerritories et)
         {
-            EmployeeTerritories.Add(et);
-            SaveChanges();
-            logger.Info($"{et.ToString()} added");
+            ValidationContext context = new ValidationContext(et, null, null);
+            List<ValidationResult> results = new List<ValidationResult>();
+
+            var isValid = Validator.TryValidateObject(et, context, results, true);
+            if (isValid)
+            {
+                var db = new Northwind_88_AMGContext();
+                // check for unique name`
+                if (db.EmployeeTerritories.Any(c => c.EmployeeId == et.EmployeeId) &&
+                    db.EmployeeTerritories.Any(c => c.TerritoryId == et.TerritoryId))
+                {
+                    // generate validation error
+                    isValid = false;
+                    results.Add(new ValidationResult("IDs exists", new string[] {"EmpIdTerId"}));
+                }
+                else
+                {
+                    logger.Info("Validation passed");
+                    // TODO: save category to db
+
+                    EmployeeTerritories.Add(et);
+                    SaveChanges();
+                    logger.Info($"{et.EmployeeId} {et.TerritoryId} updated");
+                }
+            }
+
+            if (!isValid)
+            {
+                foreach (var result in results)
+                {
+                    logger.Error($"{result.MemberNames.First()} : {result.ErrorMessage}");
+                }
+            }
         }
 
         public List<EmployeeTerritories> GetEt()
@@ -662,9 +994,39 @@ namespace NorthwindConsole.Model
 
         public void EditEt(EmployeeTerritories et)
         {
-            EmployeeTerritories.Update(et);
-            SaveChanges();
-            logger.Info($"{et.EmployeeId} {et.TerritoryId} editted");
+            ValidationContext context = new ValidationContext(et, null, null);
+            List<ValidationResult> results = new List<ValidationResult>();
+
+            var isValid = Validator.TryValidateObject(et, context, results, true);
+            if (isValid)
+            {
+                var db = new Northwind_88_AMGContext();
+                // check for unique name`
+                if (db.EmployeeTerritories.Any(c => c.EmployeeId == et.EmployeeId) &&
+                    db.EmployeeTerritories.Any(c => c.TerritoryId == et.TerritoryId))
+                {
+                    // generate validation error
+                    isValid = false;
+                    results.Add(new ValidationResult("IDs exists", new string[] {"EmpIdTerId"}));
+                }
+                else
+                {
+                    logger.Info("Validation passed");
+                    // TODO: save category to db
+
+                    EmployeeTerritories.Update(et);
+                    SaveChanges();
+                    logger.Info($"{et.EmployeeId} {et.TerritoryId} editted");
+                }
+            }
+
+            if (!isValid)
+            {
+                foreach (var result in results)
+                {
+                    logger.Error($"{result.MemberNames.First()} : {result.ErrorMessage}");
+                }
+            }
         }
     }
 }
