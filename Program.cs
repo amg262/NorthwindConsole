@@ -45,7 +45,14 @@ namespace NorthwindConsole
                     Console.WriteLine($"You must choose which of 2 portals this program will enter.");
                     Console.WriteLine($"Enter the number of which portal to go initialize");
                     Console.WriteLine();
-                    Console.WriteLine($"1. Products   |   2. Categories");
+                    Console.WriteLine("1) Products");
+                    Console.WriteLine("2) Categories");
+                    Console.WriteLine("3) Shippers");
+                    Console.WriteLine("4) Territories");
+                    Console.WriteLine("5) Regions");
+                    Console.WriteLine("");
+                    Console.WriteLine("");
+                    Console.WriteLine("");
 
                     try
                     {
@@ -366,7 +373,11 @@ namespace NorthwindConsole
                                 }
                                 else if (catDisplayPortal == 2)
                                 {
-                                    foreach (var cat in db.GetCategories()) Console.WriteLine(cat.ToString());
+                                    foreach (var cat in db.GetCategories())
+                                    {
+                                        Console.Write(
+                                            $"Id: {cat.CategoryId} Name: {cat.CategoryName} Desc: {cat.Description}\n");
+                                    }
                                 }
                                 else if (catDisplayPortal == 3)
                                 {
@@ -457,6 +468,7 @@ namespace NorthwindConsole
                         Console.WriteLine("2) Add Category");
                         Console.WriteLine("3) Display Category and related products");
                         Console.WriteLine("4) Display all Categories and their related products");
+                        //Console.WriteLine("5) Display All Category Data");
                         Console.WriteLine("\"q\" to quit");
                         choice = Console.ReadLine();
                         //Console.Clear();
