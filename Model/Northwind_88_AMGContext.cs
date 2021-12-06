@@ -469,7 +469,7 @@ namespace NorthwindConsole.Model
                 {
                     Console.ForegroundColor = ConsoleColor.DarkBlue;
                     Console.WriteLine($"Product Data");
-                    Console.Write(prod.ToString());
+                    Console.Write(prod.ToString() + "\n");
                 }
 
                 Console.ForegroundColor = ConsoleColor.DarkCyan;
@@ -484,7 +484,7 @@ namespace NorthwindConsole.Model
 
             foreach (var prod in cat.Products)
             {
-                Console.Write($"{prod.ToString()}");
+                Console.Write($"{prod.ToString()}\n");
             }
         }
 
@@ -506,7 +506,7 @@ namespace NorthwindConsole.Model
                         Console.ForegroundColor = ConsoleColor.DarkBlue;
                         if (prod.CategoryId == catId)
                         {
-                            Console.WriteLine($"{prod.ProductName}");
+                            Console.Write($"{prod.ProductName}\n");
                         }
                     }
                 }

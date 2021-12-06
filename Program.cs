@@ -188,7 +188,7 @@ namespace NorthwindConsole
                                 {
                                     foreach (var prod in db.GetProducts())
                                     {
-                                        Console.WriteLine(prod.ProductName);
+                                        Console.WriteLine(prod.ProductName + "\n");
                                     }
                                 }
                                 else if (prodDisplayPortal == 2)
@@ -204,19 +204,24 @@ namespace NorthwindConsole
                                             Console.ForegroundColor = ConsoleColor.Cyan;
                                         }
 
-                                        Console.WriteLine(prod.ToString());
+                                        Console.Write(prod.ToString() + "\n");
                                     }
                                 }
                                 else if (prodDisplayPortal == 3)
                                 {
                                     foreach (var prod in db.GetDiscontinuedProds())
                                     {
-                                        Console.WriteLine(prod.ProductName);
-                                        Console.WriteLine(prod.Discontinued);
+                                        Console.Write(
+                                            $"Id: {prod.ProductId} Name: {prod.ProductName} Discont: {prod.Discontinued}\n");
                                     }
                                 }
                                 else if (prodDisplayPortal == 4)
                                 {
+                                    foreach (var prod in db.GetActiveProds())
+                                    {
+                                        Console.Write(
+                                            $"Id: {prod.ProductId} Name: {prod.ProductName} Discont: {prod.Discontinued}\n");
+                                    }
                                 }
                                 else if (prodDisplayPortal == 5)
                                 {
@@ -225,7 +230,7 @@ namespace NorthwindConsole
 
                                     var showProd = db.GetProductById(id);
 
-                                    Console.WriteLine($"{showProd.ToString()}");
+                                    Console.Write($"{showProd.ToString()}\n");
                                 }
                                 else
                                 {
@@ -233,23 +238,34 @@ namespace NorthwindConsole
                             }
                             else if (productPortal == 4)
                             {
-                                Console.ForegroundColor = ConsoleColor.Magenta;
+                                Console.ForegroundColor = ConsoleColor.Cyan;
 
-                                Console.WriteLine("This is an Advanced Search of ALL product fields");
-                                Console.WriteLine("Entering a query will search EVERY SINGLE field of a product");
+                                Console.WriteLine("This is a very Advanced Search for Products and data");
+                                Console.WriteLine(
+                                    "If ANY of a products's fields EVEN CONTAINS let alone MATCHES, it will show.");
+                                Console.WriteLine("This is the most in-depth and thorough search you could program.");
+                                Console.WriteLine("For the sake of display, just the product Id, name will be shown.");
+                                Console.WriteLine(
+                                    "Its assumed you would understand the result you get rather than a blind search which would get very involved.");
+                                Console.WriteLine(
+                                    "But it will return all the entries youd need and make your informed selection after.");
                                 Console.WriteLine("Search Query");
                                 string query = Console.ReadLine();
 
-                                var queriedProds = db.QueryProducts(query);
+                                var queryiedProds = db.QueryProducts(query);
 
-                                Console.WriteLine($"Found {queriedProds.Count} Product(s)");
+                                var qls = new List<Categories>();
 
-                                foreach (var prod in queriedProds)
+                                Console.ForegroundColor = ConsoleColor.Cyan;
+                                foreach (var ql in queryiedProds)
                                 {
-                                    Console.WriteLine($"{prod.ToString()}");
+                                    Console.Write($"Id: {ql.ProductId} Name: {ql.ProductName}\n");
                                 }
 
+
                                 Console.WriteLine("Search Successful!");
+
+                                Console.ForegroundColor = ConsoleColor.DarkCyan;
                             }
                             else if (productPortal == 5)
                             {
@@ -345,7 +361,7 @@ namespace NorthwindConsole
                                 {
                                     foreach (var cat in db.GetCategories())
                                     {
-                                        Console.WriteLine(cat.CategoryName);
+                                        Console.Write(cat.CategoryName + "\n");
                                     }
                                 }
                                 else if (catDisplayPortal == 2)
@@ -365,7 +381,7 @@ namespace NorthwindConsole
 
                                     var showCat = db.GetCategoryById(id);
 
-                                    Console.WriteLine($"{showCat.ToString()}");
+                                    Console.Write(showCat.ToString() + "\n");
                                 }
                                 else if (catDisplayPortal == 6)
                                 {
@@ -386,8 +402,15 @@ namespace NorthwindConsole
                             {
                                 Console.ForegroundColor = ConsoleColor.Magenta;
 
-                                Console.WriteLine("This is an Advanced Search of ALL Category fields");
-                                Console.WriteLine("Entering a query will search EVERY SINGLE field of a Category");
+                                Console.WriteLine("This is a very Advanced Search for Categories and data");
+                                Console.WriteLine(
+                                    "If ANY of a category's fields EVEN CONTAINS let alone MATCHES, it will show.");
+                                Console.WriteLine("This is the most in-depth and thorough search you could program.");
+                                Console.WriteLine("For the sake of display, just the product Id, name will be shown.");
+                                Console.WriteLine(
+                                    "Its assumed you would understand the result you get rather than a blind search which would get very involved.");
+                                Console.WriteLine(
+                                    "But it will return all the entries youd need and make your informed selection after.");
                                 Console.WriteLine("Search Query");
                                 string query = Console.ReadLine();
 
@@ -398,7 +421,7 @@ namespace NorthwindConsole
                                 foreach (var ql in queriedCats)
                                 {
                                     qls.Add(ql);
-                                    Console.WriteLine($"{ql.CategoryName}");
+                                    Console.Write($"{ql.CategoryName}");
                                 }
 
 
@@ -513,7 +536,7 @@ namespace NorthwindConsole
                             Console.WriteLine($"{category.CategoryName} - {category.Description}");
                             foreach (Products p in category.Products)
                             {
-                                Console.WriteLine(p.ProductName);
+                                Console.Write(p.ProductName + "\n");
                             }
                         }
                         else if (choice == "4")
@@ -525,7 +548,7 @@ namespace NorthwindConsole
                                 Console.WriteLine($"{item.CategoryName}");
                                 foreach (Products p in item.Products)
                                 {
-                                    Console.WriteLine($"\t{p.ProductName}");
+                                    Console.WriteLine($"\t{p.ProductName}\n");
                                 }
                             }
                         }
