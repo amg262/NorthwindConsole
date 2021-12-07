@@ -249,9 +249,12 @@ namespace NorthwindConsole
                                     Console.WriteLine("Show Product with Id: ");
                                     Int32.TryParse(Console.ReadLine(), out int id);
 
-                                    var showProd = db.GetProductById(id);
+                                    List<Products> pp = db.GetProducts();
 
-                                    Console.Write($"{showProd.ToString()}\n");
+                                    foreach (var v in pp)
+                                    {
+                                        if (id == v.ProductId) Console.WriteLine(v.ToString());
+                                    }
                                 }
                                 else
                                 {
@@ -273,10 +276,11 @@ namespace NorthwindConsole
                                 Console.WriteLine("Search Query");
                                 string query = Console.ReadLine();
 
-                               // var queryiedProds = db.QueryProducts(query);
+                                // var queryiedProds = db.QueryProducts(query);
 
 
-                                IEnumerable<Products> a = db.Products.ToList().Where(p => query != null && p.ProductName.Contains(query));
+                                IEnumerable<Products> a = db.Products.ToList()
+                                    .Where(p => query != null && p.ProductName.Contains(query));
                                 var qls = new List<Categories>();
 
                                 Console.ForegroundColor = ConsoleColor.Cyan;
@@ -408,9 +412,13 @@ namespace NorthwindConsole
                                     Console.WriteLine("Show Category with Id: ");
                                     Int32.TryParse(Console.ReadLine(), out int id);
 
-                                    var showCat = db.GetCategoryById(id);
+                                    List<Categories> pp = db.GetCategories();
 
-                                    Console.Write(showCat.ToString() + "\n");
+                                    foreach (var v in pp)
+                                    {
+                                        if (v.CategoryId == id)
+                                            Console.WriteLine("id: " + v.CategoryId + "\tname:" + v.CategoryName);
+                                    }
                                 }
                                 else if (catDisplayPortal == 6)
                                 {
@@ -446,8 +454,10 @@ namespace NorthwindConsole
                                 // var queryiedProds = db.QueryProducts(query);
 
 
-                                IEnumerable<Categories> a = db.Categories.ToList().Where(p => query != null && p.CategoryName.Contains(query));
-                                IEnumerable<Categories> ab = db.Categories.ToList().Where(p => query != null && p.Description.Contains(query));
+                                IEnumerable<Categories> a = db.Categories.ToList()
+                                    .Where(p => query != null && p.CategoryName.Contains(query));
+                                IEnumerable<Categories> ab = db.Categories.ToList()
+                                    .Where(p => query != null && p.Description.Contains(query));
 
                                 Console.ForegroundColor = ConsoleColor.Cyan;
 
@@ -459,7 +469,8 @@ namespace NorthwindConsole
 
                                 foreach (var ql in ab)
                                 {
-                                    Console.Write($"Id: {ql.CategoryId}\tName: {ql.CategoryName}\tDesc: {ql.Description}\n");
+                                    Console.Write(
+                                        $"Id: {ql.CategoryId}\tName: {ql.CategoryName}\tDesc: {ql.Description}\n");
                                 }
 
                                 Console.WriteLine("Search Successful!");
@@ -488,7 +499,7 @@ namespace NorthwindConsole
                             Console.WriteLine("1) Create Shipper: ");
                             Console.WriteLine("2) Edit Shipper: ");
                             Console.WriteLine("3) Delete Shipper: ");
-              
+
                             Int32.TryParse(Console.ReadLine(), out int id);
 
                             if (id == 1)
@@ -517,7 +528,7 @@ namespace NorthwindConsole
 
                                 s.CompanyName = name;
                                 s.Phone = phone;
-                                
+
                                 db.EditShipper(s);
                                 logger.Info("Complete");
                             }
@@ -529,7 +540,6 @@ namespace NorthwindConsole
                                 db.DeleteShipper(s);
                                 logger.Info("Complete");
                             }
-                       
                         }
                         else if (portal == 4)
                         {
