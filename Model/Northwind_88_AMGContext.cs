@@ -368,17 +368,8 @@ namespace NorthwindConsole.Model
             Int32.TryParse(query, out int reorder);
             Boolean.TryParse(query, out bool distcontinued);
 
-            foreach (var prod in allProds.Where(p => p.ProductId == prodId)) foundProds.Add(prod);
             foreach (var prod in allProds.Where(p => p.ProductName.Contains(query))) foundProds.Add(prod);
-            foreach (var prod in allProds.Where(p => p.CategoryId == catId)) foundProds.Add(prod);
-            foreach (var prod in allProds.Where(p => p.SupplierId == suppId)) foundProds.Add(prod);
-            foreach (var prod in allProds.Where(p => p.QuantityPerUnit.Contains(query))) foundProds.Add(prod);
-            foreach (var prod in allProds.Where(p => p.UnitPrice == unitPrice)) foundProds.Add(prod);
-            foreach (var prod in allProds.Where(p => p.UnitsInStock == unitStock)) foundProds.Add(prod);
-            foreach (var prod in allProds.Where(p => p.UnitsOnOrder == unitsOrder)) foundProds.Add(prod);
-            foreach (var prod in allProds.Where(p => p.ReorderLevel == reorder)) foundProds.Add(prod);
-            foreach (var prod in allProds.Where(p => p.Discontinued == distcontinued)) foundProds.Add(prod);
-
+ 
 
             return foundProds;
         }

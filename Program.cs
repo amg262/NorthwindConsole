@@ -273,12 +273,16 @@ namespace NorthwindConsole
                                 Console.WriteLine("Search Query");
                                 string query = Console.ReadLine();
 
-                                var queryiedProds = db.QueryProducts(query);
+                               // var queryiedProds = db.QueryProducts(query);
 
+
+                                IEnumerable<Products> a = db.Products.ToList().Where(p => query != null && p.ProductName.Contains(query));
                                 var qls = new List<Categories>();
 
                                 Console.ForegroundColor = ConsoleColor.Cyan;
-                                foreach (var ql in queryiedProds)
+
+                                Console.WriteLine(a.Count());
+                                foreach (var ql in a)
                                 {
                                     Console.Write($"Id: {ql.ProductId} Name: {ql.ProductName}\n");
                                 }
