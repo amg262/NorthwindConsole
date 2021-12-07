@@ -467,7 +467,72 @@ namespace NorthwindConsole
                                 Console.WriteLine("Incorrect product portal");
                             }
                         }
+                        else if (portal == 3)
+                        {
+                            var db = new Northwind_88_AMGContext();
 
+                            Console.WriteLine("1) Create Shipper: ");
+                            Console.WriteLine("2) Edit Shipper: ");
+                            Console.WriteLine("3) Delete Shipper: ");
+                            Console.WriteLine("4) Get Shipper by Id: ");
+
+                            Int32.TryParse(Console.ReadLine(), out int id);
+
+                            if (id == 1)
+                            {
+                                Console.WriteLine("Company Name: ");
+                                string name = Console.ReadLine();
+
+                                Console.WriteLine("Company Phone: ");
+                                string phone = Console.ReadLine();
+
+                                Shippers obj = new Shippers() {CompanyName = name, Phone = phone};
+                                db.AddShipper(obj);
+                                logger.Info("Complete");
+                            }
+                            else if (id == 2)
+                            {
+                                Console.WriteLine("Edit Shipper Id: ");
+                                Int32.TryParse(Console.ReadLine(), out int i);
+                                Shippers s = db.GetShipperById(i);
+
+                                Console.WriteLine("New Company Name: ");
+                                string name = Console.ReadLine();
+
+                                Console.WriteLine("New Company Phone: ");
+                                string phone = Console.ReadLine();
+
+                                Shippers obj = new Shippers() {CompanyName = name, Phone = phone};
+                                db.EditShipper(obj);
+                                logger.Info("Complete");
+                            }
+                            else if (id == 3)
+                            {
+                                Console.WriteLine("Delete Shipper Id: ");
+                                Int32.TryParse(Console.ReadLine(), out int i);
+                                Shippers s = db.GetShipperById(i);
+                                db.DeleteShipper(s);
+                                logger.Info("Complete");
+                            }
+                            else if (id == 4)
+                            {
+                                Console.WriteLine("Edit Shipper Id: ");
+                                Int32.TryParse(Console.ReadLine(), out int i);
+                                Shippers s = db.GetShipperById(i);
+
+                                Console.WriteLine($"{s.CompanyName}\t{s.Phone}");
+                            }
+                        }
+                        else if (portal == 4)
+                        {
+                        }
+                        else if (portal == 5)
+                        {
+                        }
+
+                        else if (portal == 6)
+                        {
+                        }
                         else if (portal == 7)
                         {
                             StreamReader reader = new StreamReader("/bin/Debug/netcoreapp3.1/error.log");
