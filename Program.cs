@@ -25,6 +25,9 @@ namespace NorthwindConsole
             try
             {
                 string choice;
+                string start = "null";
+                int portal = 0;
+
                 do
                 {
                     /*
@@ -42,21 +45,32 @@ namespace NorthwindConsole
                     Console.WriteLine($"Welcome to Andrew Gunn's Final Project");
 
 
-                    Console.WriteLine($"You must choose which of 2 portals this program will enter.");
+                    Console.WriteLine($"You must choose which of the portals this program will enter.");
                     Console.WriteLine($"Enter the number of which portal to go initialize");
+                    Console.WriteLine("Any character or number not shown in the Main Menu will exit.");
+                    Console.WriteLine("Entering #7 will exit and print out the NLog");
                     Console.WriteLine();
+                    Console.WriteLine();
+                    Console.WriteLine("Author:\tAndrew Gunn");
+                    Console.WriteLine("GitHub:\thttps://github.com/amg262/NorthwindConsole/");
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    Console.WriteLine(".........................");
+                    Console.WriteLine("\tMAIN MENU");
+                    Console.WriteLine(".........................");
                     Console.WriteLine("1) Products");
                     Console.WriteLine("2) Categories");
                     Console.WriteLine("3) Shippers");
                     Console.WriteLine("4) Territories");
                     Console.WriteLine("5) Regions");
                     Console.WriteLine("6) Employee Territories");
-                    Console.WriteLine("");
-                    Console.WriteLine("");
+                    Console.WriteLine("-----------");
+                    Console.WriteLine("7) Exit + Output Log");
+                    Console.WriteLine("8) Exit");
 
                     try
                     {
-                        Int32.TryParse(Console.ReadLine(), out int portal);
+                        Int32.TryParse(Console.ReadLine(), out portal);
 
 
                         if (portal == 1)
@@ -437,11 +451,6 @@ namespace NorthwindConsole
 
 
                                 Console.WriteLine("Search Successful!");
-
-                                // foreach (var q in qls)
-                                // {
-                                //     Console.WriteLine($"{q.CategoryId} {q.CategoryName}");
-                                // }
                             }
                             else if (catPortal == 5)
                             {
@@ -458,21 +467,32 @@ namespace NorthwindConsole
                                 Console.WriteLine("Incorrect product portal");
                             }
                         }
+
+                        else if (portal == 7)
+                        {
+                            StreamReader reader = new StreamReader("/bin/Debug/netcoreapp3.1/error.log");
+                            while (!reader.EndOfStream)
+                            {
+                                string line = reader.ReadLine();
+                                Console.WriteLine(line);
+                            }
+
+                            reader.Close();
+                        }
                         else
                         {
-                            logger.Warn("Invalid portal");
-                            Console.WriteLine("1, 2 are only valid portals to input");
+                            logger.Info("Portal exited");
                         }
 
-                        Console.WriteLine("1) Display Categories");
-                        Console.WriteLine("2) Add Category");
-                        Console.WriteLine("3) Display Category and related products");
-                        Console.WriteLine("4) Display all Categories and their related products");
-                        //Console.WriteLine("5) Display All Category Data");
-                        Console.WriteLine("\"q\" to quit");
-                        choice = Console.ReadLine();
-                        //Console.Clear();
-                        logger.Info($"Option {choice} selected");
+                        // Console.WriteLine("1) Display Categories");
+                        // Console.WriteLine("2) Add Category");
+                        // Console.WriteLine("3) Display Category and related products");
+                        // Console.WriteLine("4) Display all Categories and their related products");
+                        // //Console.WriteLine("5) Display All Category Data");
+                        // Console.WriteLine("\"q\" to quit");
+                        // choice = Console.ReadLine();
+                        // //Console.Clear();
+                        // logger.Info($"Option {choice} selected");
 
 
                         // if (choice == "1")
@@ -573,7 +593,8 @@ namespace NorthwindConsole
                     }
 
                     Console.WriteLine();
-                } while (choice.ToLower() != "q");
+                    //} while (choice.ToLower() != "q");
+                } while (portal <= 6);
             }
             catch (Exception ex)
             {
